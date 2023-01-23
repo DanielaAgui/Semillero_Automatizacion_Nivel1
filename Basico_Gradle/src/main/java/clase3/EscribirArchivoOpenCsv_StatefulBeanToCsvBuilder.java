@@ -16,7 +16,7 @@ import java.io.IOException;
 public class EscribirArchivoOpenCsv_StatefulBeanToCsvBuilder {
     public static void main(String[] args) throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
         //Creamos un objeto tipo 'FileWriter' con el path del archivo
-        FileWriter fileWriter = new FileWriter("src/main/resources/semillero.csv", true);
+        FileWriter fileWriter = new FileWriter("./src/main/resources/semillero.csv", true);
 
         //Instanciamos la clase 'Participante' con un nuevo dato
         Participante participante = new Participante("Juan", "17/01/2023", "PCA");

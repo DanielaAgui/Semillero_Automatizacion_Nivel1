@@ -24,7 +24,7 @@ public class EscribirArchivoOpenCsv_CsvWriterBuilder {
         //ICSVWriter csvWriter = new CSVWriterBuilder(fileWriter).build();
 
         //Se genera un array con el texto a escribir
-        String[] fila = {"Nuevo", "Dato", "23"};
+        String[] fila = {"Nuevo", "Dato", "24"};
 
         //Escribimos el array
         csvWriter.writeNext(fila);
