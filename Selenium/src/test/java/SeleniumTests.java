@@ -10,6 +10,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Set;
 
 
 //Agregar libreria de Selenium de Maven Repository en build.gradle
@@ -17,12 +19,18 @@ public class SeleniumTests {
 
     //Creamos un objeto de 'ChromeDriver'
     private WebDriver driver;
+    //Creamos un objeto de tipo WebDriverWait para que detenga la ejecucion hasta que se cumpla la condicion
+    private WebDriverWait wait;
 
     //Metodo a ejecutar antes de cada test
     @BeforeEach
     public void setUp() {
         //Inicializamos el driver
         driver = new ChromeDriver();
+        //Inicializamos la espera
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        //Espera implicita general
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     @Test
@@ -57,9 +65,6 @@ public class SeleniumTests {
 
     @Test
     public void probarSelect() {
-        //Creamos un objeto de tipo WebDriverWait para que detenga la ejecucion hasta que se cumpla la condicion
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
         //Abrimos la url
         driver.get("https://magento.softwaretestingboard.com/");
         driver.findElement(By.xpath("//img[@class='product-image-photo' and @alt='Radiant Tee']")).click();
@@ -80,6 +85,58 @@ public class SeleniumTests {
         //Para automatizar los select, creamos un objeto de tipo 'Select' y localizamos el elemento
         Select select = new Select(regionSelect);
         select.selectByVisibleText("Alaska");
+    }
+
+    @Test
+    public void pruebaElementoHabilitado() {
+        driver.get("https://demoqa.com/dynamic-properties");
+        WebElement buttonDisabled = driver.findElement(By.id("enableAfter"));
+        //Esperamos hasta que el elemento este habilitado
+        wait.until(ExpectedConditions.elementToBeClickable(buttonDisabled));
+        buttonDisabled.click();
+    }
+
+    @Test
+    public void pruebaVariacionElemento() {
+        driver.get("https://demoqa.com/dynamic-properties");
+        //Esperamos que el elemento localizado contenga el atributo
+        //Pasamos elemento a localizar, atributo a contener y valor del atributo
+        wait.until(ExpectedConditions.attributeContains(By.id("colorChange"), "class", "text-danger"));
+        //Imprime el valor del atributo
+        System.out.println(driver.findElement(By.id("colorChange")).getAttribute("class"));
+    }
+
+    @Test
+    public void pruebaElementoVisible() {
+        driver.get("https://demoqa.com/dynamic-properties");
+        //Espera de 10 segundos para todos los elementos de la pagina
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.findElement(By.id("visibleAfter")).click();
+    }
+
+    @Test
+    public void pruebaNuevaVentana1() {
+        driver.get("https://demoqa.com/browser-windows");
+        driver.findElement(By.id("tabButton")).click();
+        //Obtenemos la pantalla en la que estamos parados y lo convertimos a string
+        String idActual = driver.getWindowHandle();
+        //Creamos un set y obtenemos las pantallas activas en el momento
+        Set<String> pantallas = driver.getWindowHandles();
+        //Removemos la pantalla actual del set de pantallas
+        pantallas.remove(idActual);
+        //Nos cambiamos al siguiente elemento del set de pantallas
+        driver.switchTo().window(pantallas.stream().iterator().next());
+        System.out.println(driver.findElement(By.id("sampleHeading")).getText());
+    }
+
+    @Test
+    public void pruebaNuevaVentana2() {
+        driver.get("https://demoqa.com/browser-windows");
+        driver.findElement(By.id("tabButton")).click();
+        //Creamos un ArrayList y obtenemos las ventanas
+        ArrayList<String> pantallas = new ArrayList<>(driver.getWindowHandles());
+        //Nos cambiamos a la ventana deseada segun indice
+        driver.switchTo().window(pantallas.get(0));
     }
 
     //Metodo a ejecutar despues de cada test
