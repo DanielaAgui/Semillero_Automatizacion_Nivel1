@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -137,6 +138,50 @@ public class SeleniumTests {
         ArrayList<String> pantallas = new ArrayList<>(driver.getWindowHandles());
         //Nos cambiamos a la ventana deseada segun indice
         driver.switchTo().window(pantallas.get(0));
+    }
+
+    //Un frame es un html dentro de otro html pero son independientes
+    @Test
+    public void pruebaFrames() {
+        driver.get("https://demoqa.com/frames");
+        //Nos cambiamos al frame que necesitamos poniendo nombre, id o indice
+        driver.switchTo().frame("frame1");
+        System.out.println(driver.findElement(By.id("sampleHeading")).getText());
+        //Nos devolvemos al frame principal, al navegador web
+        driver.switchTo().parentFrame();
+    }
+
+    @Test
+    public void pruebaAlertas() {
+        driver.get("https://demoqa.com/alerts");
+        driver.findElement(By.id("alertButton")).click();
+        //Esperamos hasta que la alerta este presente
+        wait.until(ExpectedConditions.alertIsPresent());
+        //Nos cambiamos a la alerta
+        Alert alert = driver.switchTo().alert();
+        //Damos clic en aceptar
+        alert.accept();
+    }
+
+    @Test
+    public void pruebaAlertaConEspera() {
+        driver.get("https://demoqa.com/alerts");
+        driver.findElement(By.id("timerAlertButton")).click();
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+    }
+
+    @Test
+    public void pruebaEscribirAlerta() {
+        driver.get("https://demoqa.com/alerts");
+        driver.findElement(By.id("promtButton")).click();
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert alert = driver.switchTo().alert();
+        //Escribimos en el campo de escritura
+        alert.sendKeys("Hola");
+        //Damos clic en cancelar
+        alert.dismiss();
     }
 
     //Metodo a ejecutar despues de cada test

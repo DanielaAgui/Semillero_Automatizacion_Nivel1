@@ -61,7 +61,7 @@ public class Ejercicio {
 
             //Creamos la query para crear una tabla
             statement.execute("CREATE TABLE IF NOT EXISTS EMPLEADOS " +
-                    "(ID INT NOT NULL, " +
+                    "(ID INT IDENTITY (1,1) NOT NULL, " +
                     "Nombre VARCHAR(50), " +
                     "Edad INT," +
                     "Perfil VARCHAR(50), " +

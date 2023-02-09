@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="EjercicioFinalSelenium" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-02-06T20:26:49" hostname="SISTE283" time="11.481">
+  <properties/>
+  <testcase name="addProducts()" classname="EjercicioFinalSelenium" time="11.481"/>
+  <system-out><![CDATA[1960
+1960
+[Nokia lumia 1520, Sony xperia z5, Nokia lumia 1520]
+[Sony xperia z5, Nokia lumia 1520, Nokia lumia 1520]
+]]></system-out>
+  <system-err><![CDATA[SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Starting ChromeDriver 109.0.5414.74 (e7c5703604daa9cc128ccf5a5d3e993513758913-refs/branch-heads/5414@{#1172}) on port 18537
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+]]></system-err>
+</testsuite>
